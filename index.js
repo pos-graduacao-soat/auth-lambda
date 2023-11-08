@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 export const handler = async (event, context, callback) => {
   const token = getTokenFromHeader(event) || ''
