@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: npm install
       - name: Zip code 
         uses: montudor/action-zip@v0.1.0
         with:
