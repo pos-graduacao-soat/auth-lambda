@@ -4,22 +4,23 @@ exports.handler = async (event, context, callback) => {
   const token = getTokenFromHeader(event) || ''
   const methodArn = event.methodArn
   
-  if(!token || !methodArn) return callback(null, 'Unauthorized')
+  if(!token || !methodArn) return callback(null, generateAuthorizationResponse('user', 'Deny', methodArn))
   
-  const jwtSecret = Buffer.from(process.env.jwtSecret, 'base64')
+  const jwtSecret = Buffer.from(process.env.jwt_secret, 'base64')
   
   try{
     const decodedToken = jwt.verify(token, jwtSecret)
     
-    if(decodedToken && decodedToken.cpf){
-      return callback(null, generateAuthorizationResponse(decodedToken.cpf, 'Allow', methodArn))
+    if(decodedToken && decodedToken.principalIdCustomer){
+      return callback(null, generateAuthorizationResponse(decodedToken.principalIdCustomer, 'Allow', methodArn))
     }
     else {
       return callback(null, generateAuthorizationResponse('user', 'Deny', methodArn))
     }
   }
   catch(e){
-    return callback(null, 'Unauthorized');
+    console.log('An error has occurred.', e)
+    return callback(null, generateAuthorizationResponse('user', 'Deny', methodArn))
   }
 }
 
