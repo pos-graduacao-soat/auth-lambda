@@ -23,5 +23,5 @@ jobs:
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws_region: us-east-1
-          function_name: lanchonete-55-authorizer
+          function_name: authorizer
           zip_file: function.zip
