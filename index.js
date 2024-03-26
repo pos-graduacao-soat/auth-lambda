@@ -53,4 +53,5 @@ function generatePolicyDocument(effect, methodArn){
       Resource: methodArn
     }]
   }
+  
 }
